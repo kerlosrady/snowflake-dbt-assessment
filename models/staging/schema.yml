@@ -1,0 +1,45 @@
+version: 2
+
+# Keep sources here ONLY if you don't have a separate models/sources/tpch_sources.yml.
+# If you already defined sources elsewhere, REMOVE this 'sources:' block to avoid duplicates.
+sources:
+  - name: tpch
+    description: "Writable copy of the Snowflake TPCH sample data"
+    database: SNOWFLAKE_SAMPLE_DATA_DEMO
+    schema: TPCH_SF1
+    tables:
+      - name: customer
+      - name: orders
+      - name: lineitem
+
+models:
+  - name: stg_orders
+    description: "Orders joined to customers with derived fields (order_year), used as a clean building block for marts."
+    columns:
+      - name: order_key
+        description: "Primary key of the order (aliased from O_ORDERKEY)."
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_key
+        description: "FK to customer (aliased from O_CUSTKEY)."
+        tests:
+          - relationships:
+              to: source('tpch', 'customer')
+              field: C_CUSTKEY
+
+      - name: customer_name
+        description: "Customer name (aliased from C_NAME)."
+
+      - name: order_status
+        description: "Order status (O_ORDERSTATUS)."
+
+      - name: total_price
+        description: "Total price of the order (O_TOTALPRICE)."
+
+      - name: order_date
+        description: "Order date (O_ORDERDATE)."
+
+      - name: order_year
+        description: "Derived: year extracted from order_date."

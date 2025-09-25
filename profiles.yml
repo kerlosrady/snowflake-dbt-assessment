@@ -1,0 +1,13 @@
+snowflake_tpch_demo:
+  outputs:
+    dev:
+      type: snowflake
+      account: almerls-bq47606              # e.g. almerls-bq47606
+      user: KERLOSRADY1                    # SELECT CURRENT_USER();
+      password: 01234567890kK@@
+      role: ACCOUNTADMIN                   # or your working role
+      warehouse: DEV_WH
+      database: snowflake_sample_data_demo                  # <-- your writable DB
+      schema: DBT_KZAKHARY                   # <-- your writable schema
+      threads: 6
+  target: dev
