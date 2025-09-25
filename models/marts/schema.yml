@@ -7,10 +7,25 @@ models:
       - name: customer_key
         description: "Customer primary key."
         tests:
-          - not_null   # spec requires at least not_null; add 'unique' if you want 1 row per customer guaranteed
-
+          - not_null
+          - unique
+          
       - name: customer_name
         description: "Customer name."
 
       - name: revenue_amount
         description: "Total revenue per customer (rounded), computed from lineitem joined to orders."
+
+  - name: nation_revenue
+    description: "Aggregated revenue by nation using TPCH sample data."
+    columns:
+      - name: nation_name
+        description: "Nation name (from TPCH nation table)."
+        tests:
+          - not_null
+
+      - name: num_customers
+        description: "Number of distinct customers in this nation."
+
+      - name: total_revenue
+        description: "Total revenue of all customers in that nation."
