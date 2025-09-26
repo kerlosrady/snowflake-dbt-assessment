@@ -107,7 +107,6 @@ dbt test
 * Added an extra model (`nation_revenue`).
 * Applied multiple dbt tests (`unique`, `not_null`, `relationships`).
 * Extended documentation for models and sources.
-* Example **exposure** (documenting a dashboard using `customer_revenue`) is included in `marts/exposures.yml`.
 
 ---
 
